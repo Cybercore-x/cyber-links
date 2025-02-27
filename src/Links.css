@@ -1,0 +1,264 @@
+.container {
+    display: grid;
+    place-items: center;
+    place-self: center;
+    padding: 5rem;
+    border-radius: 0.7rem;
+    border: 1px solid rgb(25, 25, 25);
+    background-color: rgb(25, 25, 25);
+    position: relative;
+}
+.container::after,
+.container::before {
+    --angle: 0deg;
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-image: conic-gradient(
+        from var(--angle),
+        transparent,
+        orange,
+        rgb(238, 200, 14),
+        orange
+    );
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 0.5rem;
+    border-radius: 0.7rem;
+    animation: 2s spin linear infinite;
+}
+.container::before {
+    filter: blur(1.5rem);
+    opacity: 30%;
+}
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+.p {
+    color: orange;
+}
+.title {
+    position: relative;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ec8209;
+    letter-spacing: 5px;
+    z-index: 1;
+    animation: shift 2s ease-in-out infinite alternate;
+}
+
+.title:before,
+.title:after {
+    display: block;
+    content: attr(data-glitch);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+.title:before {
+    animation: glitch 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    color: #f0e811;
+    z-index: -1;
+}
+
+.title:after {
+    animation: glitch 7s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+        infinite;
+    color: #e20a0a;
+    z-index: -2;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-3px, 3px);
+    }
+
+    40% {
+        transform: translate(-3px, -3px);
+    }
+
+    60% {
+        transform: translate(3px, 3px);
+    }
+
+    80% {
+        transform: translate(3px, -3px);
+    }
+
+    to {
+        transform: translate(0);
+    }
+}
+
+@keyframes shift {
+    0%,
+    40%,
+    44%,
+    58%,
+    61%,
+    65%,
+    69%,
+    73%,
+    100% {
+        transform: skewX(0deg);
+    }
+
+    41% {
+        transform: skewX(10deg);
+    }
+
+    42% {
+        transform: skewX(-10deg);
+    }
+
+    59% {
+        transform: skewX(40deg) skewY(10deg);
+    }
+
+    60% {
+        transform: skewX(-40deg) skewY(-10deg);
+    }
+
+    63% {
+        transform: skewX(10deg) skewY(-5deg);
+    }
+
+    70% {
+        transform: skewX(-50deg) skewY(-20deg);
+    }
+
+    71% {
+        transform: skewX(10deg) skewY(-10deg);
+    }
+}
+
+.logo {
+    width: 6rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container-child {
+    background-color: #3c3b3b;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 1rem 4rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    position: relative;
+    transition: 0.4s ease-in-out;
+}
+
+.icon {
+    width: 2rem;
+    flex-shrink: 0;
+    position: absolute;
+    left: 1rem;
+}
+.links {
+    text-decoration: none;
+    color: orange;
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: center;
+}
+.links:hover {
+    color: #fff;
+}
+.container-child:hover,
+:focus {
+    color: #ffffff;
+    background: #030303;
+    border: 1px solid #3c3c3d;
+    text-shadow: 0 0 5px #161414, 0 0 10px #242424, 0 0 20px #272424;
+    box-shadow: 0 0 5px #ab6f0e, 0 0 20px #dcc00f, 0 0 50px #caa70d,
+        0 0 100px #585651;
+}
+
+.icon:hover {
+    animation: jello-vertical 0.7s both;
+}
+@keyframes jello-vertical {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+    30% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+        transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+        transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+        transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    background-color: #ffe53b;
+    background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.2s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+}
+
+.tooltip::before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #ff2525;
+    background-size: 1000%;
+    background-position: center;
+    transform: rotate(45deg);
+    bottom: -15%;
+    transition-duration: 0.3s;
+}
+
+.faq-button:hover .tooltip {
+    top: -40px;
+    opacity: 1;
+    transition-duration: 0.3s;
+}
